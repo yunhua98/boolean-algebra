@@ -16,6 +16,9 @@ public class Simplifier {
 		
 		variableCount = in.nextInt();
 		
+		if (variableCount > 26)
+			System.out.println("Warning: too many variables. Program will display minterm groupings without converting to equation form.");
+		
 		double mintermCount = Math.pow(2, variableCount);
 		
 		System.out.println("Enter minterms (in the form 'a, b, c,...'): ");
@@ -108,18 +111,24 @@ public class Simplifier {
 		
 		for (Minterm minterm : simplifiedMinterms)
 		{
-			booleanExpression += " + ";
-			//System.out.println(minterm.getBinary());
-			//System.out.println(minterm.getDecimals());
-			for (int charNumber = 0; charNumber < minterm.getBinary().length(); charNumber++)
+			if (variableCount > 26)
 			{
-				if (minterm.getBinary().charAt(charNumber) == '0')
+				System.out.println(minterm.getBinary());
+				System.out.println(minterm.getDecimals());
+			}
+			else
+			{
+				booleanExpression += " + ";
+				for (int charNumber = 0; charNumber < minterm.getBinary().length(); charNumber++)
 				{
-					booleanExpression += letters.get(charNumber) + "'";
-				}
-				if (minterm.getBinary().charAt(charNumber) == '1')
-				{
-					booleanExpression += letters.get(charNumber);
+					if (minterm.getBinary().charAt(charNumber) == '0')
+					{
+						booleanExpression += letters.get(charNumber) + "'";
+					}
+					if (minterm.getBinary().charAt(charNumber) == '1')
+					{
+						booleanExpression += letters.get(charNumber);
+					}
 				}
 			}
 		}
